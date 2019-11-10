@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/main_footer"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/main_head_underline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.hwhhhh.musicplayer.utils.RoundImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/nabi_song"/>
+
+        <TextView
+            android:id="@+id/main_footer_song"
+            android:layout_width="240dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            tools:text="鱼仔(Cover：卢广仲)\n刘德华"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="5dp"
+            android:textColor="@color/dimGrey"/>
+
+        <ImageView
+            android:id="@+id/main_footer_play"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_play_red"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/main_footer"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

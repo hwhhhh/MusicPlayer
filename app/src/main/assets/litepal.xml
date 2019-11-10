@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<litepal>
+    <dbname value="SongSheet"/>
+    <version value="1"/>
+    <list>
+        <mapping class="com.hwhhhh.musicplayer.entity.SongSheet"></mapping>
+    </list>
+    <case value="keep"></case>
+</litepal>

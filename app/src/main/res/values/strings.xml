@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MusicPlayer</string>
+    <!--主页头部-->
+    <string name="main_head_my">我的</string>
+    <string name="main_head_find">发现</string>
+    <string name="main_head_yuncun">云村</string>
+    <string name="main_head_video">视频</string>
+    <!--主页内容-->
+    <string name="main_content_title_songSheet">创建的歌单</string>
+
+    <string name="hwhhhh">hwhhhh</string>
+</resources>

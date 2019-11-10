@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/info_head"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/main_head_underline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/info_head_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:src="@drawable/ic_back1"/>
+
+        <TextView
+            android:id="@+id/info_head_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
+            android:lineSpacingExtra="5dp"
+            android:textColor="@color/black"
+            tools:text="鱼仔（Cover：卢广仲）\n刘德华"
+            />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_disk"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        app:layout_constraintTop_toBottomOf="@id/info_head"
+        app:layout_constraintBottom_toTopOf="@id/info_seekBar"/>
+
+    <SeekBar
+        android:id="@+id/info_seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/info_footer"/>
+
+    <LinearLayout
+        android:id="@+id/info_footer"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/overline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/info_order"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginEnd="40dp"
+            android:src="@drawable/ic_play_order_black"
+            />
+
+        <ImageView
+            android:id="@+id/info_last"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_last_black" />
+
+        <ImageView
+            android:id="@+id/info_play"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            tools:background="@drawable/ic_play_black"
+            />
+
+        <ImageView
+            android:id="@+id/info_next"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_next_black" />
+
+        <ImageView
+            android:id="@+id/info_list"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
+            android:src="@drawable/ic_play_list"/>
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

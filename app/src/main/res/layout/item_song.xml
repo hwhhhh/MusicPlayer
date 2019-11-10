@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/item_song_info"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical|start"
+        android:paddingLeft="30dp"
+        android:paddingStart="30dp"
+        tools:text="Todd Li - 鱼仔（Cover：卢广仲）.mp3"
+        android:textSize="18sp"
+        />
+
+</LinearLayout>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/main_combination_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="搜索"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/main_textView_songSheet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="歌单"
+        android:textSize="28sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_combination_search"
+        />
+
+
+    <Button
+        android:id="@+id/main_button_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="play"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_textView_songSheet"/>
+
+    <Button
+        android:id="@+id/main_button_last"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="last"
+        app:layout_constraintLeft_toRightOf="@id/main_button_play"
+        app:layout_constraintTop_toBottomOf="@id/main_textView_songSheet"/>
+
+    <Button
+        android:id="@+id/main_button_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="next"
+        app:layout_constraintLeft_toRightOf="@id/main_button_last"
+        app:layout_constraintTop_toBottomOf="@id/main_textView_songSheet"/>
+
+    <Button
+        android:id="@+id/main_button_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="order"
+        app:layout_constraintLeft_toRightOf="@id/main_button_next"
+        app:layout_constraintTop_toBottomOf="@+id/main_textView_songSheet"/>
+
+    <Button
+        android:id="@+id/main_button_pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pause"
+        app:layout_constraintTop_toBottomOf="@id/main_button_play"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/main_button_resume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="resume"
+        app:layout_constraintTop_toBottomOf="@id/main_button_play"
+        app:layout_constraintLeft_toRightOf="@id/main_button_pause"/>
+
+    <SeekBar
+        android:id="@+id/main_seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_button_pause"/>
+
+    <ListView
+        android:id="@+id/main_list_songSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/main_seekBar"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/main_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_list_songSheet"
+        />
+
+    <EditText
+        android:id="@+id/main_songSheet_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="请输入歌单名称"
+        app:layout_constraintTop_toBottomOf="@id/main_add"
+        app:layout_constraintStart_toStartOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
