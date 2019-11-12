@@ -114,23 +114,6 @@ public class MainFragment extends Fragment {
     }
 
 
-
-    private void initSongContentFragment() {
-        FragmentManager fragmentManager = getChildFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment songContentFragment = fragmentManager.findFragmentByTag(SongContentFragment.class.getName());
-        if (songContentFragment == null) {
-            fragmentTransaction
-                    .add(R.id.main_content, new SongContentFragment(), SongContentFragment.class.getName());
-        } else {
-            fragmentTransaction.show(songContentFragment);
-        }
-        fragmentTransaction
-                .hide(fragmentManager.findFragmentByTag(MainContentFragment.class.getName()))
-                .addToBackStack(null)
-                .commit();
-    }
-
     private void enterMusicInfoFragment() {
         MainActivity mainActivity = (MainActivity) getActivity();
         if (mainActivity != null) {

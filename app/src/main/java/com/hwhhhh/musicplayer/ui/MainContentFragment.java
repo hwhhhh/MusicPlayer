@@ -3,9 +3,11 @@ package com.hwhhhh.musicplayer.ui;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -13,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,6 +34,8 @@ import com.hwhhhh.musicplayer.entity.SongSheet;
 import java.util.List;
 
 public class MainContentFragment extends Fragment {
+    private static final String TAG = "MainContentFragment";
+
     private View view;
     private static MainContentFragment mainContentFragment;
     private SongSheetService songSheetService;
@@ -59,6 +64,7 @@ public class MainContentFragment extends Fragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
+            Log.d(TAG, "onHiddenChanged: show");
             initView();
         }
     }
@@ -68,7 +74,7 @@ public class MainContentFragment extends Fragment {
         //歌单
         ListView listView = view.findViewById(R.id.main_listView_songSheet);
         final List<SongSheet> data = songSheetService.findAll();
-        final SongSheetAdapter songSheetAdapter = new SongSheetAdapter(getContext(), data);
+        final SongSheetAdapter songSheetAdapter = new SongSheetAdapter(getContext(), data, songSheetService);
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.dialog, null);
         listView.setAdapter(songSheetAdapter);
@@ -116,10 +122,7 @@ public class MainContentFragment extends Fragment {
                 });
             }
         });
+
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 }

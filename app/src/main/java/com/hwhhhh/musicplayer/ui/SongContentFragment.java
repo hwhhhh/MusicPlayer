@@ -21,9 +21,21 @@ import com.hwhhhh.musicplayer.adater.SongAdapter;
 
 public class SongContentFragment extends Fragment {
     private static final String TAG = "SongContentFragment";
+    private static SongContentFragment songContentFragment;
 
     private View view;
     private MusicService musicService;
+
+    public static SongContentFragment getInstance() {
+        if (songContentFragment == null) {
+            synchronized (SongContentFragment.class) {
+                if (songContentFragment == null) {
+                    songContentFragment = new SongContentFragment();
+                }
+            }
+        }
+        return songContentFragment;
+    }
 
     @Nullable
     @Override

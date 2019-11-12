@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 .hide(MainContentFragment.getInstance());
         if (fragment == null) {
             fragmentTransaction
-                    .add(R.id.main_content, new SongContentFragment(), SongContentFragment.class.getName());
+                    .add(R.id.main_content, SongContentFragment.getInstance(), SongContentFragment.class.getName());
         } else {
             fragmentTransaction
                     .show(fragment);
