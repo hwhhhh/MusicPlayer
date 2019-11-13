@@ -18,6 +18,14 @@ import com.hwhhhh.musicplayer.R;
 import com.hwhhhh.musicplayer.Service.MusicService;
 import com.hwhhhh.musicplayer.ServiceImpl.MusicServiceImpl;
 import com.hwhhhh.musicplayer.adater.SongAdapter;
+import com.hwhhhh.musicplayer.dto.SongDto;
+import com.hwhhhh.musicplayer.entity.SongBean;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 public class SongContentFragment extends Fragment {
     private static final String TAG = "SongContentFragment";
@@ -25,6 +33,7 @@ public class SongContentFragment extends Fragment {
 
     private View view;
     private MusicService musicService;
+    private SongDto songDto;
 
     public static SongContentFragment getInstance() {
         if (songContentFragment == null) {
@@ -40,9 +49,16 @@ public class SongContentFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         view = inflater.inflate(R.layout.fragment_main_song, container, false);
         initView();
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
     }
 
     @Override
@@ -57,13 +73,25 @@ public class SongContentFragment extends Fragment {
         musicService = MusicServiceImpl.getInstance(getContext());
         ListView listView = view.findViewById(R.id.song_list);
         TextView textView_title = view.findViewById(R.id.song_title);
-        listView.setAdapter(new SongAdapter(getContext(), musicService.getMusicNames()));
+        textView_title.setText(songDto.getSongSheetBean().getName());
+        if (songDto.isLocal()) {
+            listView.setAdapter(new SongAdapter(getContext()));
+        } else {
+            listView.setAdapter(new SongAdapter(getContext(), songDto));
+        }
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String musicName = (String) adapterView.getItemAtPosition(i);
-                musicService.play(musicName);
+                SongBean songBean = (SongBean) adapterView.getItemAtPosition(i);
+                musicService.play(songBean.getName());
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.ASYNC, sticky = true)
+    public void onGetMessage(SongDto songDto) {
+        if (songDto != null) {
+            this.songDto = songDto;
+        }
     }
 }

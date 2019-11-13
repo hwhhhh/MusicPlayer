@@ -1,7 +1,6 @@
 package com.hwhhhh.musicplayer.adater;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,30 +10,24 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hwhhhh.musicplayer.R;
 import com.hwhhhh.musicplayer.Service.SongSheetService;
-import com.hwhhhh.musicplayer.entity.SongSheet;
-import com.hwhhhh.musicplayer.ui.SongContentFragment;
+import com.hwhhhh.musicplayer.ServiceImpl.SongSheetServiceImpl;
+import com.hwhhhh.musicplayer.entity.SongSheetBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SongSheetAdapter extends BaseAdapter {
     private static final String TAG = "SongSheetAdapter";
-    private List<SongSheet> songSheetList;
+    private List<SongSheetBean> songSheetList;
     private Context mContext;
     private SongSheetService songSheetService;
 
-    public SongSheetAdapter(Context context, List<SongSheet> songSheetList, SongSheetService songSheetService) {
+    public SongSheetAdapter(Context context, List<SongSheetBean> songSheetList) {
         this.mContext = context;
         this.songSheetList = songSheetList;
-        this.songSheetService = songSheetService;
-    }
-
-    private SongSheetAdapter getSongSheetAdapter() {
-        return this;
+        this.songSheetService = new SongSheetServiceImpl();
     }
 
     @Override
@@ -54,7 +47,7 @@ public class SongSheetAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        SongSheet songSheet = (SongSheet) getItem(i);
+        SongSheetBean songSheet = (SongSheetBean) getItem(i);
         View contentView;
         final ViewHolder viewHolder;
         if (view == null) {
@@ -67,6 +60,11 @@ public class SongSheetAdapter extends BaseAdapter {
         } else {
             contentView = view;
             viewHolder = (ViewHolder) contentView.getTag();
+            if (i == 0) {
+                viewHolder.menu.setVisibility(View.INVISIBLE);
+            } else {
+                viewHolder.menu.setVisibility(View.VISIBLE);
+            }
         }
         viewHolder.imageView.setImageResource(R.drawable.nabi);
         viewHolder.name.setText(songSheet.getName());
@@ -104,8 +102,8 @@ public class SongSheetAdapter extends BaseAdapter {
     }
 
     private void showPopMenu(final View view) {
-        final SongSheetAdapter songSheetAdapter = getSongSheetAdapter();
-        final SongSheet songSheet = (SongSheet) view.getTag();
+        final SongSheetAdapter songSheetAdapter = this;
+        final SongSheetBean songSheet = (SongSheetBean) view.getTag();
         PopupMenu popupMenu = new PopupMenu(mContext, view);
         popupMenu.getMenuInflater().inflate(R.menu.song_sheet_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

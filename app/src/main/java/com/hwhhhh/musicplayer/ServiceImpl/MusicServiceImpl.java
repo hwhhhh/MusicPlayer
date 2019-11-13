@@ -10,6 +10,8 @@ import com.hwhhhh.musicplayer.MainActivity;
 import com.hwhhhh.musicplayer.Service.MusicChangedListener;
 import com.hwhhhh.musicplayer.Service.MusicPlayingChangedListener;
 import com.hwhhhh.musicplayer.Service.MusicService;
+import com.hwhhhh.musicplayer.Service.SongSheetService;
+import com.hwhhhh.musicplayer.entity.SongBean;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -34,9 +36,17 @@ public class MusicServiceImpl implements MusicService {
             musicNames = assetManager.list("music");    //获取assets/music下所有文件
             if (musicNames != null) {
                 randomNames = new String[musicNames.length];
+//                SongSheetService songSheetService = new SongSheetServiceImpl();
                 //深拷贝
                 for (int i = 0; i < musicNames.length; i++) {
                     randomNames[i] = musicNames[i];
+//运行一次即可，用于将本地音乐存入SongBean
+//                    SongBean songBean = new SongBean(musicNames[i], songSheetService.findAll().get(0).getId());
+//                    if (songBean.save()) {
+//                        Log.d(TAG, "MusicServiceImpl: save " + musicNames[i] + "successfully!");
+//                    } else {
+//                        Log.d(TAG, "MusicServiceImpl: default!");
+//                    }
                 }
                 currentMusicName = musicNames[0];
                 loadMusic(currentMusicName);
@@ -89,6 +99,10 @@ public class MusicServiceImpl implements MusicService {
             loadMusic(musicName);
             this.musicChangedListener.refresh();
             start();
+        } else {
+            if (!mediaPlayer.isPlaying()) {
+                start();
+            }
         }
     }
 

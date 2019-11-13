@@ -25,6 +25,7 @@
         android:paddingLeft="30dp"
         android:gravity="start|bottom"
         android:textSize="20sp"
+        android:textColor="@color/black"
         tools:text="我喜欢的音乐"
         app:layout_constraintStart_toEndOf="@id/song_cover"
         app:layout_constraintTop_toTopOf="parent"
@@ -36,7 +37,7 @@
         android:text="@string/hwhhhh"
         android:textSize="20sp"
         android:gravity="start|top"
-        android:paddingLeft="30dp"
+        android:paddingLeft="31dp"
         app:layout_constraintStart_toEndOf="@id/song_cover"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/song_title"/>

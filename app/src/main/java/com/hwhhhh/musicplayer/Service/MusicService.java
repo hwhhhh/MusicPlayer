@@ -1,8 +1,5 @@
 package com.hwhhhh.musicplayer.Service;
 
-import android.content.Context;
-
-import java.util.Map;
 
 public interface MusicService {
     int PLAY_ORDER = 1;

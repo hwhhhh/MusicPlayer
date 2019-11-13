@@ -1,31 +1,42 @@
 package com.hwhhhh.musicplayer.ServiceImpl;
 
+import android.util.Log;
+
 import com.hwhhhh.musicplayer.Service.SongSheetService;
-import com.hwhhhh.musicplayer.entity.SongSheet;
+import com.hwhhhh.musicplayer.entity.SongBean;
+import com.hwhhhh.musicplayer.entity.SongSheetBean;
 
 import org.litepal.LitePal;
 
 import java.util.List;
 
 public class SongSheetServiceImpl implements SongSheetService {
+    private static final String TAG = "SongSheetServiceImpl";
     @Override
     public boolean add(String name, String imgAddress) {
-        SongSheet songSheet = new SongSheet(name, imgAddress);
+        SongSheetBean songSheet = new SongSheetBean(name, imgAddress);
         return songSheet.save();
     }
 
     @Override
-    public int delete(SongSheet songSheet) {
+    public int delete(SongSheetBean songSheet) {
         return songSheet.delete();
     }
 
     @Override
-    public List<SongSheet> findAll() {
-        return LitePal.findAll(SongSheet.class);
+    public List<SongSheetBean> findAll() {
+        return LitePal.findAll(SongSheetBean.class);
     }
 
     @Override
-    public SongSheet findLast() {
-        return LitePal.findLast(SongSheet.class);
+    public List<SongBean> findSongBeanBySongSheetId(int songSheetId) {
+        return LitePal.where("songSheetId = ?", songSheetId+"").find(SongBean.class);
+    }
+
+    @Override
+    public boolean addSongBean(SongBean songBean, SongSheetBean songSheetBean) {
+        songBean.setSongSheetId(songSheetBean.getId());
+        songBean.save();
+        return songBean.getSongSheetId() == songSheetBean.getId();
     }
 }

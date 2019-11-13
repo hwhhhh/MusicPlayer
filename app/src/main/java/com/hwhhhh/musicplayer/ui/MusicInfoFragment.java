@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -16,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.hwhhhh.musicplayer.MainActivity;
 import com.hwhhhh.musicplayer.R;
@@ -23,8 +26,14 @@ import com.hwhhhh.musicplayer.Service.MusicChangedListener;
 import com.hwhhhh.musicplayer.Service.MusicPlayingChangedListener;
 import com.hwhhhh.musicplayer.Service.MusicService;
 import com.hwhhhh.musicplayer.ServiceImpl.MusicServiceImpl;
+import com.hwhhhh.musicplayer.adater.SongAdapter;
+import com.hwhhhh.musicplayer.dto.SongDto;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 public class MusicInfoFragment extends Fragment {
     private static final String TAG = "MusicInfoFragment";
@@ -73,7 +82,13 @@ public class MusicInfoFragment extends Fragment {
         ImageView imageView_last = view.findViewById(R.id.info_last);
         final ImageView imageView_play = view.findViewById(R.id.info_play);
         ImageView imageView_next = view.findViewById(R.id.info_next);
-//        ImageView imageView_list = view.findViewById(R.id.info_list);
+        ImageView imageView_list = view.findViewById(R.id.info_list);
+        imageView_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initOrderFragment();
+            }
+        });
 
         musicService.setMusicChangedListener(new MusicChangedListener() {
             @Override
@@ -163,7 +178,6 @@ public class MusicInfoFragment extends Fragment {
                 }
             }
         });
-
     }
 
     @Override
@@ -247,6 +261,23 @@ public class MusicInfoFragment extends Fragment {
                     }
                     break;
             }
+        }
+    }
+
+    private void initOrderFragment() {
+        if (getActivity()!=null) {
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            Fragment fragment = fragmentManager.findFragmentByTag(OrderFragment.class.getName());
+            if (fragment == null){
+                fragmentTransaction
+                        .add(R.id.info_fragment_host, OrderFragment.getInstance(), OrderFragment.class.getName());
+            } else {
+                fragmentTransaction
+                        .show(fragment);
+            }
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
     }
 }

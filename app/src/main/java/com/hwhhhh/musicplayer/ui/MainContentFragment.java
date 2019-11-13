@@ -5,9 +5,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -15,21 +12,22 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.hwhhhh.musicplayer.MainActivity;
 import com.hwhhhh.musicplayer.R;
 import com.hwhhhh.musicplayer.Service.SongSheetService;
 import com.hwhhhh.musicplayer.ServiceImpl.SongSheetServiceImpl;
 import com.hwhhhh.musicplayer.adater.SongSheetAdapter;
-import com.hwhhhh.musicplayer.entity.SongSheet;
+import com.hwhhhh.musicplayer.dto.SongDto;
+import com.hwhhhh.musicplayer.entity.SongBean;
+import com.hwhhhh.musicplayer.entity.SongSheetBean;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -73,21 +71,29 @@ public class MainContentFragment extends Fragment {
 
         //歌单
         ListView listView = view.findViewById(R.id.main_listView_songSheet);
-        final List<SongSheet> data = songSheetService.findAll();
-        final SongSheetAdapter songSheetAdapter = new SongSheetAdapter(getContext(), data, songSheetService);
+        final List<SongSheetBean> data = songSheetService.findAll();
+        final SongSheetAdapter songSheetAdapter = new SongSheetAdapter(getContext(), data);
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        final View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.dialog, null);
+        final View view1 = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_create_sheet, null);
         listView.setAdapter(songSheetAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 MainActivity mainActivity = (MainActivity) getActivity();
                 if (mainActivity != null) {
+                    SongSheetBean songSheetBean = (SongSheetBean) adapterView.getItemAtPosition(i);
+                    List<SongBean> songBeanList = songSheetService.findSongBeanBySongSheetId(songSheetBean.getId());
+                    if (i!=0) {
+                        EventBus.getDefault().postSticky(new SongDto(songSheetBean, songBeanList));
+                    } else {
+                        EventBus.getDefault().postSticky(new SongDto(songSheetBean, songBeanList, true));
+                    }
                     mainActivity.enterSongContentFragment();
                 }
             }
         });
         ImageView imageView = view.findViewById(R.id.main_add);
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,6 +106,7 @@ public class MainContentFragment extends Fragment {
                     ViewGroup viewGroup = (ViewGroup) view1.getParent();
                     if (viewGroup != null) {
                         viewGroup.removeView(view1);
+                        Log.d(TAG, "onClick: parent != null");
                     }
                     dialog.getWindow().setContentView(view1);
                     dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
@@ -114,12 +121,13 @@ public class MainContentFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         if (songSheetService.add(editText.getText().toString().trim(), null)) {
-                            data.add(new SongSheet(editText.getText().toString().trim(), null));
+                            data.add(new SongSheetBean(editText.getText().toString().trim(), null));
                             songSheetAdapter.notifyDataSetChanged();
                         }
                         dialog.dismiss();
                     }
                 });
+
             }
         });
 

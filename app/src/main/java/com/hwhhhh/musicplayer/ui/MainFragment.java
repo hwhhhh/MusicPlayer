@@ -7,31 +7,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.hwhhhh.musicplayer.MainActivity;
 import com.hwhhhh.musicplayer.R;
 import com.hwhhhh.musicplayer.Service.MusicChangedListener;
 import com.hwhhhh.musicplayer.Service.MusicPlayingChangedListener;
 import com.hwhhhh.musicplayer.Service.MusicService;
-import com.hwhhhh.musicplayer.Service.SongSheetService;
 import com.hwhhhh.musicplayer.ServiceImpl.MusicServiceImpl;
-import com.hwhhhh.musicplayer.ServiceImpl.SongSheetServiceImpl;
-import com.hwhhhh.musicplayer.adater.SongSheetAdapter;
-import com.hwhhhh.musicplayer.entity.SongSheet;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 public class MainFragment extends Fragment {
     private static final String TAG = "MainFragment";
